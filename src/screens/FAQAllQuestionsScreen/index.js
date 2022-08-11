@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { Footer } from '../../components/commons/Footer';
 import { Menu } from '../../components/commons/Menu';
 import { pageHOC } from '../../components/wrappers/pageHOC';
+import { CMSSectionRender } from '../../infra/cms/CMSSectionRender';
 import { cmsService } from '../../infra/cms/cmsService';
 import { Box, Text, Link, Image, theme } from '../../theme/components';
 
@@ -9,7 +10,37 @@ export async function getStaticProps({preview}) {
   const { data: cmsContent } = await cmsService({
     query: `
     query{
-      __typename
+      pageFaq {
+        pageContent{
+        section{
+          componentName: __typename
+          ... on CommonSeoBlockRecord {
+            id
+            title
+          }
+           ... on CommonMenuRecord {
+            id
+            
+          }
+          __typename ... on CommonFooterRecord {
+            id
+            visible
+          }
+          ... on PagefaqDisplayquestionRecord {
+            id
+            categories{
+              id
+              title
+              questions{
+              title
+                id
+              }
+              }
+          }
+         
+        }
+        }
+      }
     }
     `,
     preview
@@ -41,10 +72,18 @@ export async function getStaticProps({preview}) {
           ]
         }
       ]
-    }
+    },
+    revalidate: 10,
   }
 }
 
+function FAQAllQuestionsScreen() {
+  return (
+    <CMSSectionRender pageName="pageFaq"/>
+  )
+}
+
+/*
 function FAQAllQuestionsScreen({ categories }) {
   return (
     <>
@@ -76,7 +115,7 @@ function FAQAllQuestionsScreen({ categories }) {
             marginHorizontal: 'auto',
           }}
         >
-          {/* Block: Title Questions */}
+        
           <Box
             styleSheet={{
               flex: 2,
@@ -109,7 +148,7 @@ function FAQAllQuestionsScreen({ categories }) {
             />
           </Box>
 
-          {/* Block: Questions */}
+          
           <Box
             styleSheet={{
               flex: 3,
@@ -141,5 +180,5 @@ function FAQAllQuestionsScreen({ categories }) {
     </>
   )
 }
-
+*/
 export default pageHOC(FAQAllQuestionsScreen) ;

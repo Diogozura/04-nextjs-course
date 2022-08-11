@@ -18,7 +18,7 @@ export const getCMSContent = (path = '') => {
 }
 
 export default function CMSProvider({ cmsContent, children }) {
-  console.log(cmsContent)
+  // console.log(cmsContent)
   return (
     <CMSContext.Provider value={{cmsContent}}>
       {children}

@@ -1,7 +1,7 @@
 import { Box, Button, Image, Text, theme } from "../../../theme/components";
 
 export function PageHomeHeroSection(props) {
-
+ 
   return (
     <Box
             tag="main"
@@ -28,14 +28,14 @@ export function PageHomeHeroSection(props) {
             >
               <Text tag="h1" variant="display1">
                 {/* Title  */}
-                Mergulhe em Tecnologia!
+                {props.title}
               </Text>
               <Text tag="p" variant="body1">
                 {/* Description  */}
-                Você vai estudar, praticar, discutir e se aprofundar em uma plataforma que respira tecnologia.
+                {props.description}
               </Text>
-              <Button href="/faq" colorVariant="neutral">
-                Principais dúvidas
+              <Button href={props.ctalink} colorVariant="neutral">
+                {props.ctatext}
               </Button>
             </Box>
     
