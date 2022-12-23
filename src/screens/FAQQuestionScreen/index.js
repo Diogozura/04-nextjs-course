@@ -28,7 +28,6 @@ export async function getStaticPaths() {
     }
   });
 
-  console.log(data.allContentFaqQuestions)
   const paths = data.allContentFaqQuestions.map(({ id }) => {
     return {
        params: { id } 
